@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Recuperación</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+    <!-- Contenedor Azul -->
+    <div class="bg-info p-4 rounded">
+        <h1 class="text-center text-white bg-primary py-2">Ejercicio de Recuperación</h1>
+        <div class="row">
+            <!-- Formulario -->
+            <div class="col-md-6 p-3">
+                <form id="formulario">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Ingresa tu email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nombre" class="form-control" placeholder="Ingresa tu nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Selecciona preferencia:</label>
+                        <div>
+                            <input type="radio" id="manana" name="horario" value="Horario de mañana" checked>
+                            <label for="manana">Horario de mañana</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="tarde" name="horario" value="Horario de tarde">
+                            <label for="tarde">Horario de tarde</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="checkbox" id="notificaciones">
+                        <label for="notificaciones">Activar notificaciones</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+                <table class="table table-striped mt-4">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nombre</th>
+                            <th>Opción</th>
+                            <th>Notificaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-usuarios"></tbody>
+                </table>
+            </div>
+
+<!-- Galería con nombres -->
+<div class="col-md-6">
+    <div class="bg-white p-3 rounded">
+        <div id="galeria" class="row">
+            <div class="col-4 mb-3">
+                <div class="card">
+                    <img src="./imagenes/gatocesta.jpg" alt="Gato Cesta" class="card-img-top galeria-img" onclick="mostrarImagen(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Gato Cesta</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <div class="card">
+                    <img src="./imagenes/gatomarron.jpg" alt="Gato Marrón" class="card-img-top galeria-img" onclick="mostrarImagen(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Gato Marrón</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <div class="card">
+                    <img src="./imagenes/gatonaranja.jpeg" alt="Gato Naranja" class="card-img-top galeria-img" onclick="mostrarImagen(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Gato Naranja</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <div class="card">
+                    <img src="./imagenes/gatonegro.jpg" alt="Gato Negro" class="card-img-top galeria-img" onclick="mostrarImagen(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Gato Negro</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <div class="card">
+                    <img src="./imagenes/gatosgemelos.jpeg" alt="Gatos Gemelos" class="card-img-top galeria-img" onclick="mostrarImagen(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Gatos Gemelos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <div class="card">
+                    <img src="./imagenes/gatotumbado.jpeg" alt="Gato Tumbado" class="card-img-top galeria-img" onclick="mostrarImagen(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Gato Tumbado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Vista ampliada de la imagen -->
+        <div id="vista-imagen" class="text-center d-none">
+            <button id="btn-volver" class="btn btn-primary mb-3">Volver</button>
+            <img id="imagen-grande" src="" alt="Vista ampliada" class="img-fluid">
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
