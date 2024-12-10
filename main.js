@@ -1,4 +1,54 @@
-// main.js
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FORMULARIO
+import { addUsers, getUsers } from './funciones.js';
+
+function renderUsers() {
+  const userList = document.getElementById("user-list");
+  userList.innerHTML = ''; // Limpiar la lista antes de renderizar
+
+  getUsers().forEach((user, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td>${user.opcion}</td>
+      <td>${user.notificaciones}</td>
+      <td>
+        <button class="btn btn-warning btn-sm" onclick="editUser(${index})">Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteUserEntry(${index})">Eliminar</button>
+      </td>
+    `;
+    console.log(user.name, user.email, user.opcion, "Aaa")
+    userList.appendChild(row);
+  });
+}
+
+function addNewUser() {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const opcion = document.getElementById('opcion').value;
+  const notificaciones = document.getElementById('notificaciones').value;
+
+  addUser({ name, email, opcion, notificaciones });
+  renderUsers();
+
+  // Limpiar el formulario
+  document.getElementById('name').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('opcion').value = '';
+  document.getElementById('notificaciones').value = '';
+}
+
+
+
+// Hacer accesibles las funciones globalmente
+window.addNewUser = addNewUser;
+
+// Renderizar usuarios al cargar la página
+renderUsers();
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//GALERIA
 // Variables de la galería y el botón "Volver"
 const galeria = document.getElementById("galeria");
 const vistaImagen = document.getElementById("vista-imagen");
