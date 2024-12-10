@@ -1,100 +1,87 @@
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//FORMULARIO
 import { addUsers, getUsers } from './funciones.js';
 
+// Función para renderizar la lista de usuarios en la tabla
 function renderUsers() {
-  const userList = document.getElementById("user-list");
-  userList.innerHTML = ''; // Limpiar la lista antes de renderizar
+  const userList = document.getElementById('user-list');
+  userList.innerHTML = ''; // Limpiar la tabla antes de agregar usuarios
 
-  getUsers().forEach((user, index) => {
+  getUsers().forEach((user) => {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${user.name}</td>
       <td>${user.email}</td>
+      <td>${user.nombre}</td>
       <td>${user.opcion}</td>
-      <td>${user.notificaciones}</td>
-      <td>
-        <button class="btn btn-warning btn-sm" onclick="editUser(${index})">Editar</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteUserEntry(${index})">Eliminar</button>
-      </td>
+      <td>${user.notificaciones ? 'Sí' : 'No'}</td>
     `;
-    console.log(user.name, user.email, user.opcion, "Aaa")
-    userList.appendChild(row);
+    userList.appendChild(row); // Corregido el error tipográfico "appendCsild" a "appendChild"
   });
 }
 
-function addNewUser() {
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const opcion = document.getElementById('opcion').value;
-  const notificaciones = document.getElementById('notificaciones').value;
+// Función para agregar un nuevo usuario al sistema
+function addNewUser(e) {
+  e.preventDefault(); // Prevenir el envío del formulario
 
-  addUser({ name, email, opcion, notificaciones });
+  // Corrección: Obtener los valores de los campos del formulario
+  const email = document.getElementById('email').value;
+  const nombre = document.getElementById('nombre').value;
+  const opcion = document.querySelector('input[name="horario"]:checked').value;
+  const notificaciones = document.getElementById('notificaciones').checked;
+
+  // Agregar el nuevo usuario a la lista
+  addUsers({ email, nombre, opcion, notificaciones });
+
+  // Actualizar la tabla con los datos
   renderUsers();
 
   // Limpiar el formulario
-  document.getElementById('name').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('opcion').value = '';
-  document.getElementById('notificaciones').value = '';
+  document.getElementById('formulario').reset();
 }
 
+// Evento para enviar el formulario
+document.getElementById('formulario').addEventListener('submit', addNewUser);
 
-
-// Hacer accesibles las funciones globalmente
+// Hacer accesibles las funciones globalmente (opcional)
+window.renderUsers = renderUsers;
 window.addNewUser = addNewUser;
 
 // Renderizar usuarios al cargar la página
 renderUsers();
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //GALERIA
 // Variables de la galería y el botón "Volver"
+// Referencias a los elementos de la galería
 const galeria = document.getElementById("galeria");
 const vistaImagen = document.getElementById("vista-imagen");
 const imagenGrande = document.getElementById("imagen-grande");
 const btnVolver = document.getElementById("btn-volver");
 
-// Variable para saber si estamos en la vista ampliada o no
-let enVistaAmpliada = false;
-
 // Función para mostrar la imagen ampliada
-function mostrarImagen(src) {
-    // Ocultar la vista de la galería
+function mostrarImagen(imagen) {
+    // Ocultar todas las imágenes de la galería
     galeria.classList.add("d-none");
 
-    // Mostrar la vista de la imagen ampliada
+    // Mostrar la vista ampliada y cargar la imagen
     vistaImagen.classList.remove("d-none");
-
-    // Establecer la fuente de la imagen ampliada
-    imagenGrande.src = src;
-
-    // Cambiar el estado a vista ampliada
-    enVistaAmpliada = true;
+    imagenGrande.src = imagen.src;
+    imagenGrande.alt = imagen.alt;
 }
 
 // Función para volver a la galería
 function volverGaleria() {
-    // Mostrar todas las imágenes en la galería
-    galeria.classList.remove("d-none");
-
-    // Ocultar la vista ampliada
+    // Ocultar la vista ampliada y mostrar la galería
     vistaImagen.classList.add("d-none");
-
-    // Cambiar el estado a vista normal
-    enVistaAmpliada = false;
+    galeria.classList.remove("d-none");
 }
 
 // Agregar eventos de clic a las imágenes de la galería
 const imagenesGaleria = document.querySelectorAll(".galeria-img");
 imagenesGaleria.forEach(imagen => {
-    imagen.addEventListener("click", (e) => {
-        // Mostrar la imagen ampliada al hacer clic
-        mostrarImagen(e.target.src);
+    imagen.addEventListener("click", () => {
+        mostrarImagen(imagen);
     });
 });
 
-// Evento del botón "Volver"
-btnVolver.addEventListener("click", () => {
-    volverGaleria();
-});
+// Agregar evento de clic al botón "Volver"
+btnVolver.addEventListener("click", volverGaleria);
